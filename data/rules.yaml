@@ -1,0 +1,418 @@
+version: 1
+start_node: n_edu_start
+low_mental_health_threshold: 40
+nodes:
+  - node_id: n_edu_start
+    scene: education
+    prompt: 你正在教育分岔口：是继续冲更高学历，还是先进入社会积累？
+    tags: [starter, education]
+    options:
+      - option_id: exam_keep
+        text: 继续冲刺考试（高考/考研/证书）
+        next: n_grad_exam
+        score_delta:
+          development_potential: 9
+          mental_health: -8
+          economic_pressure: 5
+          relationship_stability: -2
+        three_year_state: 获得更高学历门票，但压力轨迹上升。
+        cost: 时间窗口被压缩，短期收入承压。
+        repair_actions: 拆分任务到周计划，保留每周一整天休息。
+        evidence_note: 高投入学习通常提升长期发展势能。
+      - option_id: job_first
+        text: 先就业再决定是否继续深造
+        next: n_career_entry
+        score_delta:
+          development_potential: 4
+          mental_health: 2
+          economic_pressure: -8
+          relationship_stability: 1
+        three_year_state: 现金流更稳定，职业认知更清晰。
+        cost: 名校通道可能变窄。
+        repair_actions: 设立 12 个月复盘点，避免路径锁死。
+        evidence_note: 先就业可降低家庭经济压力。
+
+  - node_id: n_edu_alt
+    scene: education
+    prompt: 当前成绩与资源受限，是否考虑职业教育/技能路线？
+    options:
+      - option_id: skill_route
+        text: 走技能路线并冲实习
+        next: n_career_entry
+        score_delta:
+          development_potential: 6
+          mental_health: 1
+          economic_pressure: -5
+          relationship_stability: 0
+        three_year_state: 进入就业赛道更快，技能可迁移性增加。
+        cost: 学历标签弱，初期竞争压力较高。
+        repair_actions: 补齐作品集和行业证书。
+      - option_id: retry_exam
+        text: 再投入一年复读/重考
+        next: n_grad_exam
+        score_delta:
+          development_potential: 8
+          mental_health: -10
+          economic_pressure: 6
+          relationship_stability: -2
+        three_year_state: 若成功可明显抬升平台，但波动大。
+        cost: 不确定性高，心理负荷明显。
+        repair_actions: 设定止损线并准备 B 计划。
+
+  - node_id: n_grad_exam
+    scene: graduate_exam
+    prompt: 你处于读研/考公分岔口，要名校、调剂、还是就业先行？
+    options:
+      - option_id: transfer_research
+        text: 接受调剂并进入研究生阶段
+        next: n_career_research
+        score_delta:
+          development_potential: 10
+          mental_health: -4
+          economic_pressure: 4
+          relationship_stability: -1
+        three_year_state: 学历提升，职业上限上移。
+        cost: 短期延迟收入，专业匹配可能下降。
+        repair_actions: 主动补核心技能并做实习联动。
+        evidence_note: 调剂可保留读研窗口。
+      - option_id: exam_retry
+        text: 二战/再冲更高目标
+        next: n_grad_retry
+        score_delta:
+          development_potential: 7
+          mental_health: -12
+          economic_pressure: 9
+          relationship_stability: -3
+        three_year_state: 上限潜力高，但路径波动最大。
+        cost: 时间成本和焦虑成本同步上涨。
+        repair_actions: 将备考分阶段并绑定心理恢复动作。
+      - option_id: grad_to_job
+        text: 停止考试，直接就业
+        next: n_career_entry
+        score_delta:
+          development_potential: 3
+          mental_health: 3
+          economic_pressure: -6
+          relationship_stability: 1
+        three_year_state: 更快建立职业稳定性。
+        cost: 对名校目标会有遗憾。
+        repair_actions: 保留在职进修路径。
+      - option_id: job_first
+        text: 先就业再观察是否继续深造
+        next: n_career_entry
+        score_delta:
+          development_potential: 2
+          mental_health: 4
+          economic_pressure: -5
+          relationship_stability: 1
+        three_year_state: 快速进入职场并获得真实反馈。
+        cost: 学历跃迁窗口可能变窄。
+        repair_actions: 预留 12 个月复盘点，保留升学备选。
+
+  - node_id: n_grad_retry
+    scene: graduate_exam
+    prompt: 你在重复备考中，是否继续冲顶还是及时止损转轨？
+    options:
+      - option_id: continue_retry
+        text: 继续冲刺第三次
+        next: n_career_entry
+        score_delta:
+          development_potential: 5
+          mental_health: -14
+          economic_pressure: 10
+          relationship_stability: -4
+        three_year_state: 成功则跃迁，不成功则机会成本显著。
+        cost: 边际收益不确定且心理风险高。
+        repair_actions: 设定明确终点和退场策略。
+      - option_id: stop_retry
+        text: 止损转就业/技能强化
+        next: n_career_entry
+        score_delta:
+          development_potential: 4
+          mental_health: 6
+          economic_pressure: -4
+          relationship_stability: 2
+        three_year_state: 回到可控路径，恢复节奏。
+        cost: 需要处理目标落差情绪。
+        repair_actions: 用 90 天行动计划重建掌控感。
+
+  - node_id: n_career_entry
+    scene: career
+    prompt: 职业起步阶段，你会选择稳定岗位、转行还是去高压平台？
+    options:
+      - option_id: stable_job
+        text: 选择稳定岗位（现金流优先）
+        next: n_city_choice
+        score_delta:
+          development_potential: 2
+          mental_health: 5
+          economic_pressure: -7
+          relationship_stability: 3
+        three_year_state: 生活稳定度提升，风险可控。
+        cost: 成长速度可能慢于高压赛道。
+        repair_actions: 每季度补一项核心技能。
+      - option_id: high_pressure_role
+        text: 进入高压高回报平台
+        next: n_city_choice
+        score_delta:
+          development_potential: 10
+          mental_health: -8
+          economic_pressure: -2
+          relationship_stability: -3
+        three_year_state: 职业履历增值快。
+        cost: 身心透支风险上升。
+        repair_actions: 设定工作边界和恢复窗口。
+      - option_id: switch_track
+        text: 主动转行到新赛道
+        next: n_city_choice
+        score_delta:
+          development_potential: 6
+          mental_health: -3
+          economic_pressure: 2
+          relationship_stability: -1
+        three_year_state: 形成第二增长曲线。
+        cost: 过渡期收入与身份感波动。
+        repair_actions: 用项目作品缩短试错期。
+
+  - node_id: n_career_research
+    scene: career
+    prompt: 研究生阶段后，是否走技术就业、考公还是继续学术？
+    options:
+      - option_id: research_to_industry
+        text: 走技术就业
+        next: n_city_choice
+        score_delta:
+          development_potential: 8
+          mental_health: -1
+          economic_pressure: -5
+          relationship_stability: 1
+        three_year_state: 就业确定性提升，职业路径清晰。
+        cost: 学术积累可能中断。
+        repair_actions: 保留行业研究写作习惯。
+      - option_id: public_service
+        text: 转考公/事业单位
+        next: n_city_choice
+        score_delta:
+          development_potential: 4
+          mental_health: 3
+          economic_pressure: -4
+          relationship_stability: 4
+        three_year_state: 稳定性提高，节奏更可控。
+        cost: 市场化机会减少。
+        repair_actions: 保留副业与学习成长路径。
+
+  - node_id: n_city_choice
+    scene: city
+    prompt: 你要在城市机会和生活负担之间做权衡。
+    options:
+      - option_id: stay_big_city
+        text: 留在一线/新一线城市
+        next: n_relationship_choice
+        score_delta:
+          development_potential: 8
+          mental_health: -4
+          economic_pressure: 9
+          relationship_stability: -1
+        three_year_state: 资源密度高，职业可能性更大。
+        cost: 房租与竞争压力高。
+        repair_actions: 设预算上限并稳定作息。
+      - option_id: return_hometown
+        text: 回到家乡或二线城市
+        next: n_relationship_choice
+        score_delta:
+          development_potential: -1
+          mental_health: 5
+          economic_pressure: -8
+          relationship_stability: 4
+        three_year_state: 生活成本下降，关系支持增强。
+        cost: 职业机会密度可能下降。
+        repair_actions: 用远程协作补齐机会差。
+
+  - node_id: n_city_alt
+    scene: city
+    prompt: 城市策略可迭代，你是否考虑“先大后小”的阶段策略？
+    options:
+      - option_id: staged_city
+        text: 先大城市积累再回流
+        next: n_relationship_choice
+        score_delta:
+          development_potential: 6
+          mental_health: -2
+          economic_pressure: 3
+          relationship_stability: 0
+        three_year_state: 同时获得资源与生活平衡可能。
+        cost: 切换过程摩擦较高。
+        repair_actions: 设明确回流时间点。
+      - option_id: city_longstay
+        text: 长期定居当前城市
+        next: n_relationship_choice
+        score_delta:
+          development_potential: 2
+          mental_health: 1
+          economic_pressure: -1
+          relationship_stability: 1
+        three_year_state: 路径连续性增强。
+        cost: 错失其他城市红利可能。
+        repair_actions: 每年做一次城市机会复盘。
+
+  - node_id: n_relationship_choice
+    scene: relationship
+    prompt: 亲密关系与个人发展节奏出现冲突时，你怎么选？
+    options:
+      - option_id: relation_prioritize
+        text: 优先稳定关系并协同规划
+        next: n_family_choice
+        score_delta:
+          development_potential: -1
+          mental_health: 4
+          economic_pressure: 1
+          relationship_stability: 8
+        three_year_state: 关系确定性提高，情绪支持增强。
+        cost: 个人路径自由度下降。
+        repair_actions: 保持个人成长议程。
+      - option_id: self_prioritize
+        text: 优先个人发展，关系保持弹性
+        next: n_family_choice
+        score_delta:
+          development_potential: 6
+          mental_health: -2
+          economic_pressure: -1
+          relationship_stability: -5
+        three_year_state: 发展速度快，但关系不确定性上升。
+        cost: 孤独与误解风险增加。
+        repair_actions: 明确沟通边界与期望。
+
+  - node_id: n_relationship_alt
+    scene: relationship
+    prompt: 当关系消耗过大，是否需要主动降压或退出？
+    options:
+      - option_id: relation_repair
+        text: 降压修复关系
+        next: n_family_choice
+        score_delta:
+          development_potential: 0
+          mental_health: 3
+          economic_pressure: 0
+          relationship_stability: 5
+        three_year_state: 关系可持续性改善。
+        cost: 需要时间和沟通投入。
+        repair_actions: 固定每周深度沟通。
+      - option_id: relation_exit
+        text: 结束不健康关系
+        next: n_family_choice
+        score_delta:
+          development_potential: 2
+          mental_health: 1
+          economic_pressure: -1
+          relationship_stability: -2
+        three_year_state: 短期波动，长期重建空间增大。
+        cost: 短期情绪冲击强。
+        repair_actions: 强化社交支持系统。
+
+  - node_id: n_family_choice
+    scene: family
+    prompt: 家庭责任上升时，你会如何分配精力与资源？
+    options:
+      - option_id: family_support_high
+        text: 高投入承担家庭责任
+        next: n_entrepreneurship_choice
+        score_delta:
+          development_potential: -2
+          mental_health: -2
+          economic_pressure: 4
+          relationship_stability: 6
+        three_year_state: 家庭关系更稳固。
+        cost: 个人发展与休息被压缩。
+        repair_actions: 明确边界并争取家庭协作。
+      - option_id: family_support_balanced
+        text: 平衡投入，保留个人发展带宽
+        next: n_entrepreneurship_choice
+        score_delta:
+          development_potential: 3
+          mental_health: 2
+          economic_pressure: 1
+          relationship_stability: 2
+        three_year_state: 多线发展更可持续。
+        cost: 需要更高沟通成本。
+        repair_actions: 设立家庭与个人双周计划。
+
+  - node_id: n_family_alt
+    scene: family
+    prompt: 当家庭期待与个人目标冲突，是否需要重新谈判？
+    options:
+      - option_id: family_negotiate
+        text: 主动沟通并重新协商期待
+        next: n_entrepreneurship_choice
+        score_delta:
+          development_potential: 2
+          mental_health: 3
+          economic_pressure: 0
+          relationship_stability: 3
+        three_year_state: 冲突下降，角色边界更清楚。
+        cost: 前期沟通摩擦。
+        repair_actions: 用事实数据支持你的选择。
+      - option_id: family_comply
+        text: 暂时顺从家庭安排
+        next: n_entrepreneurship_choice
+        score_delta:
+          development_potential: -1
+          mental_health: -3
+          economic_pressure: -1
+          relationship_stability: 2
+        three_year_state: 表面稳定但内在消耗累积。
+        cost: 自我认同感可能下滑。
+        repair_actions: 预留个人决策窗口。
+
+  - node_id: n_entrepreneurship_choice
+    scene: entrepreneurship
+    prompt: 你是否在当前阶段尝试创业？
+    options:
+      - option_id: startup_now
+        text: 立即创业（高风险高回报）
+        next: n_entrepreneurship_outcome
+        score_delta:
+          development_potential: 10
+          mental_health: -6
+          economic_pressure: 12
+          relationship_stability: -4
+        three_year_state: 若方向正确，成长速度显著。
+        cost: 现金流与不确定性压力极高。
+        repair_actions: 小步试错并设置资金止损线。
+      - option_id: startup_later
+        text: 先积累资源，延后创业
+        next: n_entrepreneurship_outcome
+        score_delta:
+          development_potential: 5
+          mental_health: 2
+          economic_pressure: -3
+          relationship_stability: 1
+        three_year_state: 创业成功率更可控。
+        cost: 机会窗口可能被延迟。
+        repair_actions: 用副项目验证商业假设。
+
+  - node_id: n_entrepreneurship_outcome
+    scene: entrepreneurship
+    prompt: 你完成一轮关键抉择，是否继续推演下一阶段？
+    options:
+      - option_id: continue_life
+        text: 继续推演下一阶段人生
+        next: n_city_alt
+        score_delta:
+          development_potential: 2
+          mental_health: 1
+          economic_pressure: 0
+          relationship_stability: 0
+        three_year_state: 进入下一轮选择与反馈循环。
+        cost: 需要持续面对不确定性。
+        repair_actions: 每轮结束做一次复盘。
+      - option_id: end_with_review
+        text: 结束并生成复盘建议
+        next: n_edu_alt
+        score_delta:
+          development_potential: 1
+          mental_health: 3
+          economic_pressure: 0
+          relationship_stability: 2
+        three_year_state: 获得阶段性结论和行动清单。
+        cost: 需定期回来更新路径。
+        repair_actions: 设下一个 90 天回访点。

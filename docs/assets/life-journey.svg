@@ -1,0 +1,77 @@
+<svg width="1200" height="780" viewBox="0 0 1200 780" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff8ef"/>
+      <stop offset="100%" stop-color="#ecf5ff"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff8c42"/>
+      <stop offset="100%" stop-color="#2b90d9"/>
+    </linearGradient>
+    <style>
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2.2; rx: 14; }
+      .small { font: 600 20px "PingFang SC", "Microsoft YaHei", sans-serif; fill: #111827; }
+      .note { font: 500 16px "PingFang SC", "Microsoft YaHei", sans-serif; fill: #374151; }
+      .title { font: 800 42px "PingFang SC", "Microsoft YaHei", sans-serif; fill: url(#title); }
+      .sub { font: 500 22px "PingFang SC", "Microsoft YaHei", sans-serif; fill: #334155; }
+      .arrow { stroke: #0f172a; stroke-width: 2.2; fill: none; marker-end: url(#arr); }
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="780" fill="url(#bg)"/>
+  <text x="70" y="85" class="title">被蒸馏的中国人的一生</text>
+  <text x="70" y="122" class="sub">认真模拟中国青年典型人生路：学业、就业、城市、关系、家庭、创业</text>
+
+  <rect class="box" x="70" y="180" width="220" height="110"/>
+  <text class="small" x="95" y="235">学业分叉</text>
+  <text class="note" x="95" y="262">高考 / 复读 / 职教</text>
+
+  <rect class="box" x="350" y="180" width="230" height="110"/>
+  <text class="small" x="380" y="235">升学抉择</text>
+  <text class="note" x="380" y="262">考研 / 调剂 / 就业</text>
+
+  <rect class="box" x="640" y="180" width="230" height="110"/>
+  <text class="small" x="670" y="235">职业路径</text>
+  <text class="note" x="670" y="262">稳定岗 / 转行 / 高压平台</text>
+
+  <rect class="box" x="930" y="180" width="200" height="110"/>
+  <text class="small" x="955" y="235">城市选择</text>
+  <text class="note" x="955" y="262">一线 / 回流 / 过渡</text>
+
+  <rect class="box" x="190" y="380" width="240" height="120"/>
+  <text class="small" x="220" y="437">关系与成长平衡</text>
+  <text class="note" x="220" y="466">亲密关系与个人目标</text>
+
+  <rect class="box" x="490" y="380" width="240" height="120"/>
+  <text class="small" x="520" y="437">家庭责任协商</text>
+  <text class="note" x="520" y="466">支持家庭与自我边界</text>
+
+  <rect class="box" x="790" y="380" width="250" height="120"/>
+  <text class="small" x="820" y="437">创业时机判断</text>
+  <text class="note" x="820" y="466">现在冲 or 先积累再上</text>
+
+  <rect class="box" x="320" y="580" width="560" height="130"/>
+  <text class="small" x="350" y="635">人生轨迹卡（每一步都会输出）</text>
+  <text class="note" x="350" y="665">当前选择 → 3年后状态 → 代价 → 补救动作</text>
+  <text class="note" x="350" y="692">四维评分：发展潜力 / 心理健康 / 经济压力 / 关系稳定（0-100）</text>
+
+  <path class="arrow" d="M 290 235 L 350 235"/>
+  <path class="arrow" d="M 580 235 L 640 235"/>
+  <path class="arrow" d="M 870 235 L 930 235"/>
+
+  <path class="arrow" d="M 1030 290 C 1030 340, 920 340, 920 380"/>
+  <path class="arrow" d="M 790 440 L 730 440"/>
+  <path class="arrow" d="M 490 440 L 430 440"/>
+
+  <path class="arrow" d="M 310 500 C 310 560, 380 560, 380 580"/>
+  <path class="arrow" d="M 610 500 L 610 580"/>
+  <path class="arrow" d="M 910 500 C 910 560, 840 560, 840 580"/>
+
+  <rect x="70" y="620" width="210" height="90" fill="#fff1f2" stroke="#e11d48" stroke-width="2" rx="12"/>
+  <text class="small" x="90" y="655" fill="#9f1239">安全优先</text>
+  <text class="note" x="90" y="682" fill="#9f1239">高危表达即暂停剧情，</text>
+  <text class="note" x="90" y="704" fill="#9f1239">先进入危机支持流程</text>
+</svg>
