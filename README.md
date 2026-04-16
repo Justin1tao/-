@@ -93,6 +93,51 @@ powershell -ExecutionPolicy Bypass -File scripts/install.ps1
 
 安装成功后，脚本会打印一条可复制启动命令。
 
+### 🔐 AI IDE 安全安装（Secure Install）
+适用于希望在 Codex / Cursor / 其他 AI IDE 中以“可审计、可回滚”的方式安装。
+
+1. 拉取仓库到本地（不要直接执行未知脚本）
+```bash
+git clone https://github.com/Justin1tao/-.git
+cd -
+```
+
+2. 固定到已知提交（推荐）
+```bash
+git log --oneline -n 5
+# 选择一个你信任的 commit，例如 0a66253
+git checkout <commit_sha>
+```
+
+3. 人工审查关键文件（最小审查集）
+```bash
+sed -n '1,220p' SKILL.md
+sed -n '1,260p' scripts/install.sh
+sed -n '1,260p' scripts/install.ps1
+sed -n '1,260p' engine/cli.py
+```
+
+4. 本地最小权限安装（不需要管理员权限）
+- macOS
+```bash
+bash scripts/install.sh
+```
+- Windows PowerShell
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install.ps1
+```
+
+5. 安装后完整性校验（必须执行）
+```bash
+python -m engine verify
+pytest -q
+```
+
+安全建议：
+- 仅从官方仓库地址安装，不从陌生镜像下载。
+- 不要在不受信任环境中暴露 `OPENAI_API_KEY` 或其他密钥。
+- 如需二次开发，优先新建分支并保留原始 commit 以便回滚。
+
 ## 📦 仓库结构
 - `SKILL.md`：对话协议与行为规则
 - `engine/`：Python 状态机引擎
