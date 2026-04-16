@@ -39,4 +39,4 @@ Get-Content $verifyOut
 Write-Host ''
 Write-Host '启动命令（可复制）：'
 Write-Host "cd '$targetDir'; $python -m engine verify"
-Write-Host '排查文档: https://github.com/your-org/distilled-cn-life-skill#troubleshooting'
+Write-Host '排查文档: https://github.com/Justin1tao/被蒸馏的中国人的一生#troubleshooting'

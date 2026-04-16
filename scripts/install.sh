@@ -38,4 +38,4 @@ cat /tmp/life_skill_verify.json
 echo
 echo "启动命令（可复制）："
 echo "cd '$TARGET_DIR' && $PYTHON_BIN -m engine verify"
-echo "排查文档: https://github.com/your-org/distilled-cn-life-skill#troubleshooting"
+echo "排查文档: https://github.com/Justin1tao/被蒸馏的中国人的一生#troubleshooting"
